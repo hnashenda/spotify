@@ -1,0 +1,102 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+
+
+public class ReversedBinary {
+
+	private static final int BITS = 32;
+	
+	public static void main(String[] args) {
+				
+		String s1 = getInput("enter text");
+				
+		int i1 = Integer.parseInt(s1);
+		
+		String binaryString = Integer.toBinaryString(i1);
+		
+		String reversed = reverseString(binaryString);
+		
+		System.out.println("the length is "+ reversed.length());
+		
+		if(reversed.length() == 32){
+			int negativeNum = binaryToDec(reversed);
+			System.out.println("this is a negative integer of value "+ negativeNum);
+		}
+		
+		else{
+			
+			System.out.println("this is a positive integer");
+			
+			int decimal = Integer.parseInt(reversed, 2);
+			
+			System.out.println("   Sample output: "+decimal);
+			
+		}
+	}
+	
+	private static String getInput(String prompt){
+	    	     
+        BufferedReader br = 
+          new BufferedReader(new InputStreamReader(System.in));
+       // String s = br.readLine();
+      
+        System.out.println( prompt);
+        System.out.flush();
+      try {
+         return br.readLine();
+         }   catch (Exception e) {
+      
+        return "Error" + e.getMessage();
+         
+    } 
+    }
+	
+	private static String reverseString(String str){
+		char[] charArray = str.toCharArray();
+		
+		int end = charArray.length-1;
+		
+		int start = 0;
+		char temp;
+		while(end > start){
+			
+			temp = charArray[start];
+		 	charArray[start] = charArray[end];
+			charArray[end] = temp;
+
+			start++;
+			end--;
+			
+		}
+		
+		String reversedString = new String(charArray);
+		
+		return reversedString;
+		
+	}
+	
+
+	
+	private static int binaryToDec(String str){
+		
+		char[] binary = str.toCharArray();
+		
+		int power = 128;
+	    int sum = 0;
+	    
+	    for ( int i=0; i<BITS; ++i) {
+	        if ( i==0 && binary[i]!='0') {
+	           // sum = -128;
+	        	sum = - 2147483648;
+	        }
+	        else {
+	            sum += (binary[i]-'0')*power;
+	        }
+	        power /= 2;
+	    }
+	    return sum;
+	}
+	
+
+}
