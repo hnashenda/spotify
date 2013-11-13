@@ -1,0 +1,142 @@
+import java.util.*; 
+
+public class ZipfSong {
+
+	private static int count =1;
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//HashMap<String, Integer> map = new HashMap<String, Integer>();
+	//	Hashtable balance = new Hashtable();
+		LinkedHashMap lhm = new LinkedHashMap();
+				
+		lhm.put("one",30);
+		lhm.put("two",30);		
+		lhm.put("three",15);
+		lhm.put("four",25);
+				
+		System.out.println(lhm);
+		qualityCalc(lhm);
+		
+		// Get a set of the entries
+	      Set set = lhm.entrySet();
+	      // Get an iterator
+	      Iterator i = set.iterator();
+	      //get count;
+	     
+	      // Display elements
+	     /* while(i.hasNext()) {
+	         Map.Entry me = (Map.Entry)i.next();
+	         System.out.print(count + " " + me.getKey() + ": ");
+	         System.out.println(me.getValue());
+	         count++;
+	      }*/
+	      
+	      System.out.println("the size of the hashmap is "+ lhm.size());
+	     
+	  //    int maxValueInMap = (Collections.max(lhm.values()));
+	      
+	    //  System.out.println("max value in the map is "+ maxValueInMap);
+	      
+	      removeItem(lhm);
+				
+	}
+		
+	private static double qualityCalc(LinkedHashMap map){
+		
+		LinkedHashMap lhmNew = new LinkedHashMap();
+		
+		// Get a set of the entries
+	       Set set = map.entrySet();
+	      // Get an iterator
+	       Iterator i = set.iterator();
+	      //get count;
+	      double count =1;
+	      
+	      
+	      //while(i.hasNext()) {
+	      while(count <=4) {
+	    	     
+	    	  	 Map.Entry me = (Map.Entry)i.next();
+		      //   System.out.print(count + " " + me.getKey() + ": ");
+		        // System.out.println(me.getValue());
+	    	  		
+	    	  
+		         double zipf = 1/count;
+		        // double real = (double)(me.getValue());
+		        double real= (double) ((Integer) me.getValue()).intValue();
+		         
+		        double quality = real/zipf;
+		        
+		        lhmNew.put(me.getKey(), quality);
+		        
+	    	  	System.out.println("the zipf is "+ zipf+" the real is "+ real+" the quality is "+ quality);
+		         
+	    	  // map.remove(me.getValue()).intValue());
+	    	  	
+	    	  //	System.out.println(me.getKey());
+	    	 // 	me.remove(me.getKey());
+		         
+		         count++;
+		      }
+	      
+			double quality = 0.0;
+			System.out.println(lhmNew);
+		return quality;
+		
+	}
+	
+	private static void removeItem(LinkedHashMap map){
+		
+		int maxValueInMap = (Collections.max(map.values()));
+		
+		System.out.println("max value in the map is "+ maxValueInMap);
+		
+		//map.remove(30);
+		
+		//System.out.println(map);
+		//for (Entry<String, Integer> entry: map.entrySet()){
+			//if(entry.getValue()==maxValueInMap){
+				//System.out.println(entry.getKey());
+			//}
+			
+		//}
+		
+		// Get a set of the entries
+	       Set set = map.entrySet();
+	      // Get an iterator
+	       Iterator i = set.iterator();
+	      //get count;
+	      double count =1;
+	      
+	      Object currentKey = new Object();
+	      
+	      
+	      
+	      while(i.hasNext()) {
+	    	  
+	    	  Map.Entry me = (Map.Entry)i.next();
+	    	  
+	    	  int currentValue = ((Integer) me.getValue()).intValue();
+	    	  
+	    	  if(currentValue==maxValueInMap){
+				System.out.println(me.getKey());
+				
+				currentKey = me.getKey();
+				//map.remove(currentKey);
+				break;
+	    	  }
+	    	  
+	    	  
+	      }
+		
+		map.remove(currentKey);
+		System.out.println(map);
+		
+		//removeItem(map);
+		
+	}
+	
+	
+	
+}
